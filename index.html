@@ -10,7 +10,6 @@
   body { background: #0d1117; color: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace; }
   #app { display: flex; height: 100vh; }
   #sidebar { width: 280px; background: #161b22; border-right: 1px solid #30363d; display: flex; flex-direction: column; overflow: hidden; }
-  #graph { flex: 1; }
   .sidebar-section { padding: 12px 16px; border-bottom: 1px solid #30363d; }
   .sidebar-section h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #8b949e; margin-bottom: 8px; }
   h1 { font-size: 16px; color: #58a6ff; }
@@ -32,13 +31,18 @@
   #search-info { font-size: 11px; color: #8b949e; margin-top: 6px; display: none; }
   #search-info .count { color: #58a6ff; }
   #stats { font-size: 12px; color: #8b949e; line-height: 1.6; }
-  #detail { flex: 1; overflow-y: auto; padding: 16px; font-size: 13px; }
-  #detail h3 { color: #58a6ff; margin-bottom: 8px; }
+  #graph-area { flex: 1; position: relative; }
+  #graph { width: 100%; height: 100%; }
+  #detail { display: none; position: absolute; bottom: 12px; right: 12px; width: 480px; max-height: 45vh; background: #161b22; border: 1px solid #30363d; border-radius: 6px; overflow-y: auto; padding: 16px; font-size: 13px; line-height: 1.6; z-index: 10; box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
+  #detail.open { display: block; }
+  #detail-close { position: absolute; top: 8px; right: 10px; background: none; border: none; color: #484f58; cursor: pointer; font-size: 18px; line-height: 1; padding: 2px 6px; }
+  #detail-close:hover { color: #c9d1d9; }
+  #detail h3 { color: #58a6ff; margin-bottom: 8px; padding-right: 24px; }
   #detail a.moltbook-link { color: #58a6ff; text-decoration: none; font-size: 12px; display: inline-block; margin-top: 4px; }
   #detail a.moltbook-link:hover { text-decoration: underline; }
   #detail .prop { color: #8b949e; }
   #detail .val { color: #c9d1d9; }
-  #detail pre { background: #0d1117; padding: 8px; border-radius: 4px; overflow-x: auto; font-size: 12px; white-space: pre-wrap; }
+  #detail pre { background: #0d1117; padding: 10px; border-radius: 4px; overflow-x: auto; font-size: 12px; white-space: pre-wrap; max-height: 200px; overflow-y: auto; }
   .edge-list { margin-top: 8px; }
   .edge-item { padding: 4px 0; border-bottom: 1px solid #21262d; font-size: 12px; }
   .edge-item .rel { color: #a371f7; font-weight: 600; }
@@ -91,10 +95,12 @@
       <h3>Engrams</h3>
       <div id="engrams-list"><div id="engrams-empty">No engrams yet</div></div>
     </div>
-    <div id="detail"></div>
     <div id="refresh-note"></div>
   </div>
-  <div id="graph"></div>
+  <div id="graph-area">
+    <div id="graph"></div>
+    <div id="detail"><button id="detail-close" onclick="closeDetail()">&times;</button></div>
+  </div>
 </div>
 <script>
 const COLORS = { agent: '#2dd4bf', post: '#f97066', topic: '#e3b341', submolt: '#a371f7', engram: '#f0b429' };
@@ -218,11 +224,12 @@ function moltbookUrl(node) {
 
 function renderDetail(nodeData) {
   const d = document.getElementById('detail');
-  if (!nodeData) { d.innerHTML = '<p style="color:#484f58">Click a node for details</p>'; return; }
+  if (!nodeData) { d.classList.remove('open'); return; }
   const n = nodeData._data;
   const props = n.properties || {};
   const url = moltbookUrl(n);
-  let html = `<h3>${n.name}</h3>`;
+  let html = `<button id="detail-close" onclick="closeDetail()">&times;</button>`;
+  html += `<h3>${n.name}</h3>`;
   if (url) html += `<a class="moltbook-link" href="${url}" target="_blank">View on Moltbook &rarr;</a>`;
   html += `<p><span class="prop">Type:</span> <span class="val">${n.type}</span></p>`;
   html += `<p><span class="prop">ID:</span> <span class="val">${n.id}</span></p>`;
@@ -241,6 +248,11 @@ function renderDetail(nodeData) {
     html += '</div>';
   }
   d.innerHTML = html;
+  d.classList.add('open');
+}
+
+function closeDetail() {
+  document.getElementById('detail').classList.remove('open');
 }
 
 async function loadGraph() {
@@ -372,7 +384,6 @@ function clearSearch() {
 // Initial load
 loadGraph();
 loadEngrams();
-renderDetail(null);
 </script>
 </body>
 </html>
