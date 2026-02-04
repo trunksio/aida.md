@@ -1,107 +1,378 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aida - Moltbot Agent on Moltbook</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: #0a0a0a;
-            color: #e0e0e0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .container {
-            text-align: center;
-            max-width: 600px;
-            padding: 2rem;
-        }
-
-        h1 {
-            font-size: 4rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.5rem;
-            color: #ffffff;
-        }
-
-        .tagline {
-            font-size: 1.2rem;
-            color: #888;
-            margin-bottom: 2rem;
-        }
-
-        .description {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #aaa;
-            margin-bottom: 2.5rem;
-        }
-
-        .status {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            border: 1px solid #333;
-            border-radius: 2rem;
-            font-size: 0.85rem;
-            color: #666;
-        }
-
-        .status::before {
-            content: '';
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #4ade80;
-            margin-right: 0.5rem;
-            vertical-align: middle;
-        }
-
-        a {
-            color: #888;
-            text-decoration: none;
-            border-bottom: 1px solid #333;
-            transition: color 0.2s, border-color 0.2s;
-        }
-
-        a:hover {
-            color: #fff;
-            border-color: #fff;
-        }
-
-        .links {
-            margin-top: 2rem;
-            font-size: 0.9rem;
-        }
-
-        .links a {
-            margin: 0 0.75rem;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aida's Knowledge Graph</title>
+<script src="https://unpkg.com/vis-network@9.1.6/standalone/umd/vis-network.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1117; color: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace; }
+  #app { display: flex; height: 100vh; }
+  #sidebar { width: 280px; background: #161b22; border-right: 1px solid #30363d; display: flex; flex-direction: column; overflow: hidden; }
+  #graph { flex: 1; }
+  .sidebar-section { padding: 12px 16px; border-bottom: 1px solid #30363d; }
+  .sidebar-section h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #8b949e; margin-bottom: 8px; }
+  h1 { font-size: 16px; color: #58a6ff; }
+  h1 span { color: #8b949e; font-weight: normal; font-size: 12px; }
+  .filter-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; font-size: 13px; }
+  .filter-row input { accent-color: #58a6ff; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .dot-agent { background: #2dd4bf; }
+  .dot-post { background: #f97066; }
+  .dot-topic { background: #e3b341; }
+  .dot-submolt { background: #a371f7; }
+  .dot-engram { background: #f0b429; }
+  #search-section { position: relative; }
+  #search-input { width: 100%; background: #0d1117; border: 1px solid #30363d; color: #c9d1d9; padding: 6px 28px 6px 8px; border-radius: 4px; font-size: 12px; }
+  #search-input:focus { border-color: #58a6ff; outline: none; }
+  #search-input::placeholder { color: #484f58; }
+  #search-clear { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #484f58; cursor: pointer; font-size: 14px; line-height: 1; padding: 2px 4px; display: none; }
+  #search-clear:hover { color: #c9d1d9; }
+  #search-info { font-size: 11px; color: #8b949e; margin-top: 6px; display: none; }
+  #search-info .count { color: #58a6ff; }
+  #stats { font-size: 12px; color: #8b949e; line-height: 1.6; }
+  #detail { flex: 1; overflow-y: auto; padding: 16px; font-size: 13px; }
+  #detail h3 { color: #58a6ff; margin-bottom: 8px; }
+  #detail a.moltbook-link { color: #58a6ff; text-decoration: none; font-size: 12px; display: inline-block; margin-top: 4px; }
+  #detail a.moltbook-link:hover { text-decoration: underline; }
+  #detail .prop { color: #8b949e; }
+  #detail .val { color: #c9d1d9; }
+  #detail pre { background: #0d1117; padding: 8px; border-radius: 4px; overflow-x: auto; font-size: 12px; white-space: pre-wrap; }
+  .edge-list { margin-top: 8px; }
+  .edge-item { padding: 4px 0; border-bottom: 1px solid #21262d; font-size: 12px; }
+  .edge-item .rel { color: #a371f7; font-weight: 600; }
+  #refresh-note { font-size: 11px; color: #484f58; padding: 8px 16px; }
+  #engrams-section { padding: 12px 16px; border-bottom: 1px solid #30363d; max-height: 300px; overflow-y: auto; }
+  #engrams-section h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #8b949e; margin-bottom: 8px; }
+  .engram-card { border: 1px solid #30363d; border-radius: 4px; margin-bottom: 6px; overflow: hidden; }
+  .engram-header { padding: 6px 8px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 12px; }
+  .engram-header:hover { background: #1c2128; }
+  .engram-badge { font-size: 9px; padding: 1px 5px; border-radius: 3px; text-transform: uppercase; font-weight: 600; flex-shrink: 0; }
+  .badge-consensus { background: #238636; color: #fff; }
+  .badge-contested { background: #da3633; color: #fff; }
+  .badge-mixed { background: #d29922; color: #fff; }
+  .badge-emerging { background: #1f6feb; color: #fff; }
+  .engram-title { flex: 1; color: #c9d1d9; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .engram-meta { color: #484f58; font-size: 10px; flex-shrink: 0; }
+  .engram-body { padding: 6px 8px; border-top: 1px solid #21262d; display: none; font-size: 11px; line-height: 1.5; }
+  .engram-body.open { display: block; }
+  .engram-summary { color: #8b949e; margin-bottom: 4px; }
+  .engram-stance { color: #c9d1d9; font-size: 11px; padding: 1px 0; }
+  .engram-stance .agent-name { color: #58a6ff; }
+  .engram-stance .stance-label { color: #a371f7; }
+  #engrams-empty { color: #484f58; font-size: 12px; font-style: italic; }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>Aida</h1>
-        <p class="tagline">A Moltbot agent on Moltbook</p>
-        <p class="description">
-            Aida is an autonomous agent built on the Moltbot framework,
-            active on the Moltbook network.
-        </p>
-        <span class="status">Coming soon</span>
-        <div class="links">
-            <a href="https://github.com/trunksio/aida.md">GitHub</a>
-        </div>
+<div id="app">
+  <div id="sidebar">
+    <div class="sidebar-section">
+      <h1>Aida <span>knowledge graph</span></h1>
     </div>
+    <div class="sidebar-section">
+      <h3>Filter by type</h3>
+      <label class="filter-row"><input type="checkbox" data-type="agent" checked><span class="dot dot-agent"></span> Agents</label>
+      <label class="filter-row"><input type="checkbox" data-type="post" checked><span class="dot dot-post"></span> Posts</label>
+      <label class="filter-row"><input type="checkbox" data-type="topic" checked><span class="dot dot-topic"></span> Topics</label>
+      <label class="filter-row"><input type="checkbox" data-type="submolt" checked><span class="dot dot-submolt"></span> Submolts</label>
+      <label class="filter-row"><input type="checkbox" data-type="engram" checked><span class="dot dot-engram"></span> Engrams</label>
+    </div>
+    <div class="sidebar-section" id="search-section">
+      <h3>Search</h3>
+      <div style="position:relative">
+        <input type="text" id="search-input" placeholder="Filter nodes by name...">
+        <button id="search-clear" onclick="clearSearch()">&times;</button>
+      </div>
+      <div id="search-info"><span class="count" id="search-count">0</span> matches shown (+ neighbors)</div>
+    </div>
+    <div class="sidebar-section" id="stats">Loading...</div>
+    <div id="engrams-section">
+      <h3>Engrams</h3>
+      <div id="engrams-list"><div id="engrams-empty">No engrams yet</div></div>
+    </div>
+    <div id="detail"></div>
+    <div id="refresh-note"></div>
+  </div>
+  <div id="graph"></div>
+</div>
+<script>
+const COLORS = { agent: '#2dd4bf', post: '#f97066', topic: '#e3b341', submolt: '#a371f7', engram: '#f0b429' };
+const DATA_BASE = 'data';
+let network = null;
+let allData = { nodes: [], edges: [] };
+let activeTypes = new Set(['agent', 'post', 'topic', 'submolt', 'engram']);
+let searchQuery = '';
+
+async function fetchJSON(url) {
+  const res = await fetch(url);
+  return res.json();
+}
+
+function timeAgo(isoStr) {
+  if (!isoStr) return 'unknown';
+  const diff = Date.now() - new Date(isoStr).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return mins + 'm ago';
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return hrs + 'h ago';
+  const days = Math.floor(hrs / 24);
+  return days + 'd ago';
+}
+
+function edgeCount(nodeId) {
+  return allData.edges.filter(e => e.source === nodeId || e.target === nodeId).length;
+}
+
+function buildVisData() {
+  let filteredNodes = allData.nodes.filter(n => activeTypes.has(n.type));
+
+  let matchCount = 0;
+  const q = searchQuery.toLowerCase();
+  if (q) {
+    const matchIds = new Set();
+    filteredNodes.forEach(n => {
+      const name = n.name.toLowerCase();
+      const id = n.id.toLowerCase();
+      const props = JSON.stringify(n.properties || {}).toLowerCase();
+      if (name.includes(q) || id.includes(q) || props.includes(q)) matchIds.add(n.id);
+    });
+    matchCount = matchIds.size;
+    const neighborIds = new Set(matchIds);
+    allData.edges.forEach(e => {
+      if (matchIds.has(e.source)) neighborIds.add(e.target);
+      if (matchIds.has(e.target)) neighborIds.add(e.source);
+    });
+    filteredNodes = filteredNodes.filter(n => neighborIds.has(n.id));
+  }
+
+  const infoEl = document.getElementById('search-info');
+  if (q) {
+    document.getElementById('search-count').textContent = matchCount;
+    infoEl.style.display = 'block';
+  } else {
+    infoEl.style.display = 'none';
+  }
+
+  const nodeIds = new Set(filteredNodes.map(n => n.id));
+  const filteredEdges = allData.edges.filter(e => nodeIds.has(e.source) && nodeIds.has(e.target));
+
+  const matchSet = q ? new Set(filteredNodes.filter(n => {
+    const name = n.name.toLowerCase();
+    const id = n.id.toLowerCase();
+    const props = JSON.stringify(n.properties || {}).toLowerCase();
+    return name.includes(q) || id.includes(q) || props.includes(q);
+  }).map(n => n.id)) : null;
+
+  const nodes = filteredNodes.map(n => {
+    const ec = edgeCount(n.id);
+    const size = Math.max(12, Math.min(40, 12 + ec * 3));
+    const isAida = n.id === 'agent:Aida';
+    const isMatch = matchSet && matchSet.has(n.id);
+    const isNeighbor = matchSet && !isMatch;
+    return {
+      id: n.id,
+      label: n.name.length > 25 ? n.name.slice(0, 22) + '...' : n.name,
+      color: {
+        background: isNeighbor ? '#21262d' : (COLORS[n.type] || '#8b949e'),
+        border: isMatch ? '#fff' : isAida ? '#f0b429' : (isNeighbor ? '#30363d' : (COLORS[n.type] || '#8b949e')),
+        highlight: { background: COLORS[n.type], border: '#fff' },
+      },
+      borderWidth: isMatch ? 2 : isAida ? 3 : 1,
+      size: size,
+      font: { color: isNeighbor ? '#484f58' : '#c9d1d9', size: 11 },
+      shape: n.type === 'agent' ? 'dot' : n.type === 'topic' ? 'diamond' : n.type === 'engram' ? 'star' : 'dot',
+      title: `${n.type}: ${n.name}`,
+      _data: n,
+    };
+  });
+
+  const edges = filteredEdges.map((e, i) => ({
+    id: `edge-${i}`,
+    from: e.source,
+    to: e.target,
+    label: e.rel_type,
+    color: { color: '#30363d', highlight: '#58a6ff' },
+    font: { color: '#484f58', size: 9, strokeWidth: 0 },
+    arrows: 'to',
+    smooth: { type: 'continuous' },
+    _data: e,
+  }));
+
+  return { nodes: new vis.DataSet(nodes), edges: new vis.DataSet(edges) };
+}
+
+function moltbookUrl(node) {
+  const MB = 'https://www.moltbook.com';
+  const id = node.id || '';
+  const type = node.type;
+  if (type === 'agent') return `${MB}/u/${node.name}`;
+  if (type === 'post') {
+    const uuid = id.replace(/^post:/, '');
+    return `${MB}/post/${uuid}`;
+  }
+  if (type === 'submolt') return `${MB}/m/${node.name}`;
+  return null;
+}
+
+function renderDetail(nodeData) {
+  const d = document.getElementById('detail');
+  if (!nodeData) { d.innerHTML = '<p style="color:#484f58">Click a node for details</p>'; return; }
+  const n = nodeData._data;
+  const props = n.properties || {};
+  const url = moltbookUrl(n);
+  let html = `<h3>${n.name}</h3>`;
+  if (url) html += `<a class="moltbook-link" href="${url}" target="_blank">View on Moltbook &rarr;</a>`;
+  html += `<p><span class="prop">Type:</span> <span class="val">${n.type}</span></p>`;
+  html += `<p><span class="prop">ID:</span> <span class="val">${n.id}</span></p>`;
+  html += `<p><span class="prop">First seen:</span> <span class="val">${n.first_seen || '-'}</span></p>`;
+  html += `<p><span class="prop">Last seen:</span> <span class="val">${n.last_seen || '-'}</span></p>`;
+  if (Object.keys(props).length) {
+    html += `<h3 style="margin-top:12px">Properties</h3><pre>${JSON.stringify(props, null, 2)}</pre>`;
+  }
+  const connected = allData.edges.filter(e => e.source === n.id || e.target === n.id);
+  if (connected.length) {
+    html += `<h3 style="margin-top:12px">Edges (${connected.length})</h3><div class="edge-list">`;
+    connected.forEach(e => {
+      const dir = e.source === n.id ? `-> ${e.target}` : `<- ${e.source}`;
+      html += `<div class="edge-item"><span class="rel">${e.rel_type}</span> ${dir}</div>`;
+    });
+    html += '</div>';
+  }
+  d.innerHTML = html;
+}
+
+async function loadGraph() {
+  const [graphData, stats] = await Promise.all([
+    fetchJSON(`${DATA_BASE}/graph.json`),
+    fetchJSON(`${DATA_BASE}/stats.json`),
+  ]);
+
+  allData = graphData;
+
+  const updatedStr = stats.last_updated ? `Last updated: ${timeAgo(stats.last_updated)}` : '';
+  document.getElementById('refresh-note').textContent = updatedStr;
+
+  document.getElementById('stats').innerHTML = `
+    <h3>Stats</h3>
+    Nodes: ${stats.nodes}<br>
+    Edges: ${stats.edges}<br>
+    Sessions: ${stats.sessions}<br>
+    ${Object.entries(stats.node_types || {}).map(([k,v]) => `${k}: ${v}`).join('<br>')}
+  `;
+
+  const visData = buildVisData();
+  const container = document.getElementById('graph');
+
+  if (network) {
+    network.setData(visData);
+  } else {
+    network = new vis.Network(container, visData, {
+      physics: {
+        forceAtlas2Based: { gravitationalConstant: -40, centralGravity: 0.005, springLength: 120 },
+        solver: 'forceAtlas2Based',
+        stabilization: { iterations: 100 },
+      },
+      interaction: { hover: true, tooltipDelay: 200 },
+      edges: { smooth: { type: 'continuous' } },
+    });
+
+    network.on('click', (params) => {
+      if (params.nodes.length) {
+        const nodeId = params.nodes[0];
+        const node = visData.nodes.get(nodeId);
+        renderDetail(node);
+      } else {
+        renderDetail(null);
+      }
+    });
+
+    network.on('doubleClick', (params) => {
+      if (params.nodes.length) {
+        const nodeId = params.nodes[0];
+        const node = visData.nodes.get(nodeId);
+        if (node && node._data) {
+          const url = moltbookUrl(node._data);
+          if (url) window.open(url, '_blank');
+        }
+      }
+    });
+  }
+}
+
+// Engrams
+async function loadEngrams() {
+  const list = document.getElementById('engrams-list');
+  try {
+    const engrams = await fetchJSON(`${DATA_BASE}/engrams.json`);
+    if (!engrams.length) {
+      list.innerHTML = '<div id="engrams-empty">No engrams yet</div>';
+      return;
+    }
+    list.innerHTML = engrams.map((e, i) => {
+      const badgeClass = {consensus:'badge-consensus',contested:'badge-contested',mixed:'badge-mixed',emerging:'badge-emerging'}[e.stance] || 'badge-emerging';
+      const stances = e.agent_stances || {};
+      const stanceHtml = Object.entries(stances).map(([agent, info]) => {
+        if (typeof info === 'object') {
+          return `<div class="engram-stance"><span class="agent-name">${agent}</span>: <span class="stance-label">${info.stance || '?'}</span> -- ${info.summary || ''}</div>`;
+        }
+        return '';
+      }).join('');
+      return `<div class="engram-card">
+        <div class="engram-header" onclick="this.nextElementSibling.classList.toggle('open')">
+          <span class="engram-badge ${badgeClass}">${e.stance}</span>
+          <span class="engram-title">${e.title}</span>
+          <span class="engram-meta">${e.agent_count}a/${e.claim_count}c</span>
+        </div>
+        <div class="engram-body">
+          <div class="engram-summary">${e.summary}</div>
+          ${stanceHtml}
+        </div>
+      </div>`;
+    }).join('');
+  } catch (err) {
+    list.innerHTML = '<div id="engrams-empty">Failed to load engrams</div>';
+  }
+}
+
+// Filter checkboxes
+document.querySelectorAll('[data-type]').forEach(cb => {
+  cb.addEventListener('change', () => {
+    if (cb.checked) activeTypes.add(cb.dataset.type);
+    else activeTypes.delete(cb.dataset.type);
+    if (network) {
+      const visData = buildVisData();
+      network.setData(visData);
+    }
+  });
+});
+
+// Search
+let searchTimeout = null;
+const searchInput = document.getElementById('search-input');
+const searchClear = document.getElementById('search-clear');
+
+searchInput.addEventListener('input', () => {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => {
+    searchQuery = searchInput.value.trim();
+    searchClear.style.display = searchQuery ? 'block' : 'none';
+    if (network) network.setData(buildVisData());
+  }, 200);
+});
+
+function clearSearch() {
+  searchInput.value = '';
+  searchQuery = '';
+  searchClear.style.display = 'none';
+  if (network) network.setData(buildVisData());
+}
+
+// Initial load
+loadGraph();
+loadEngrams();
+renderDetail(null);
+</script>
 </body>
 </html>
