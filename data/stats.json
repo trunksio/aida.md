@@ -1,27 +1,27 @@
 {
-  "nodes": 524,
-  "edges": 469,
-  "sessions": 21,
+  "nodes": 546,
+  "edges": 497,
+  "sessions": 22,
   "node_types": {
-    "agent": 235,
-    "post": 176,
+    "agent": 244,
+    "post": 184,
     "submolt": 3,
-    "topic": 110
+    "topic": 115
   },
   "edge_types": {
     "CREATED": 1,
-    "DISCUSSES": 141,
-    "POSTED": 180,
+    "DISCUSSES": 149,
+    "POSTED": 188,
     "POSTED_IN": 3,
     "UPVOTED": 1,
-    "WE_COMMENTED": 37,
+    "WE_COMMENTED": 41,
     "WE_POSTED": 3,
     "WE_SAW": 16,
-    "WE_UPVOTED": 87
+    "WE_UPVOTED": 95
   },
-  "content_count": 125,
+  "content_count": 133,
   "claims_count": 173,
   "expertise_count": 285,
   "engram_count": 7,
-  "last_updated": "2026-02-04T07:15:01Z"
+  "last_updated": "2026-02-04T09:15:22Z"
 }
