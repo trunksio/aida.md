@@ -47,7 +47,7 @@
   .edge-item { padding: 4px 0; border-bottom: 1px solid #21262d; font-size: 12px; }
   .edge-item .rel { color: #a371f7; font-weight: 600; }
   #refresh-note { font-size: 11px; color: #484f58; padding: 8px 16px; }
-  #engrams-section { padding: 12px 16px; border-bottom: 1px solid #30363d; max-height: 300px; overflow-y: auto; }
+  #engrams-section { padding: 12px 16px; border-bottom: 1px solid #30363d; max-height: 200px; overflow-y: auto; }
   #engrams-section h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #8b949e; margin-bottom: 8px; }
   .engram-card { border: 1px solid #30363d; border-radius: 4px; margin-bottom: 6px; overflow: hidden; }
   .engram-header { padding: 6px 8px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 12px; }
@@ -66,6 +66,32 @@
   .engram-stance .agent-name { color: #58a6ff; }
   .engram-stance .stance-label { color: #a371f7; }
   #engrams-empty { color: #484f58; font-size: 12px; font-style: italic; }
+  /* Agent tabs */
+  .agent-tabs { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 8px; }
+  .agent-tab { padding: 4px 10px; font-size: 11px; border: 1px solid #30363d; border-radius: 4px; background: transparent; color: #8b949e; cursor: pointer; transition: all 0.15s; }
+  .agent-tab:hover { border-color: #58a6ff; color: #c9d1d9; }
+  .agent-tab.active { background: #58a6ff; border-color: #58a6ff; color: #0d1117; font-weight: 600; }
+  /* Temporal filter */
+  .temporal-filter { margin-top: 8px; }
+  .temporal-filter select { width: 100%; background: #0d1117; border: 1px solid #30363d; color: #c9d1d9; padding: 6px 8px; border-radius: 4px; font-size: 12px; }
+  .temporal-filter select:focus { border-color: #58a6ff; outline: none; }
+  .custom-range { display: none; margin-top: 8px; }
+  .custom-range.show { display: block; }
+  .custom-range input { width: 100%; background: #0d1117; border: 1px solid #30363d; color: #c9d1d9; padding: 4px 8px; border-radius: 4px; font-size: 11px; margin-bottom: 4px; }
+  /* Campaign dashboard */
+  #campaigns-section { padding: 12px 16px; border-bottom: 1px solid #30363d; max-height: 200px; overflow-y: auto; }
+  #campaigns-section h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #8b949e; margin-bottom: 8px; }
+  .campaign-card { border: 1px solid #30363d; border-radius: 4px; margin-bottom: 6px; padding: 8px; }
+  .campaign-title { color: #58a6ff; font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+  .campaign-topic { color: #e3b341; font-size: 10px; margin-bottom: 4px; }
+  .campaign-metrics { display: flex; gap: 8px; font-size: 10px; color: #8b949e; margin-bottom: 6px; }
+  .campaign-agents { display: flex; gap: 4px; flex-wrap: wrap; }
+  .agent-badge { font-size: 9px; padding: 2px 6px; border-radius: 3px; }
+  .agent-badge.lead { background: #238636; color: #fff; }
+  .agent-badge.support { background: #1f6feb; color: #fff; }
+  .agent-badge.contrarian { background: #da3633; color: #fff; }
+  #campaigns-empty { color: #484f58; font-size: 12px; font-style: italic; }
+  .scrollable { flex: 1; overflow-y: auto; }
 </style>
 </head>
 <body>
@@ -75,12 +101,38 @@
       <h1><a href="https://www.moltbook.com/u/Aida" target="_blank" style="color:inherit;text-decoration:none">Aida</a> <span>knowledge graph</span></h1>
     </div>
     <div class="sidebar-section">
+      <h3>Filter by Agent</h3>
+      <div class="agent-tabs">
+        <button class="agent-tab active" data-agent="all">All</button>
+        <button class="agent-tab" data-agent="Aida">Aida</button>
+        <button class="agent-tab" data-agent="Alpha">Alpha</button>
+        <button class="agent-tab" data-agent="Beta">Beta</button>
+        <button class="agent-tab" data-agent="Gamma">Gamma</button>
+        <button class="agent-tab" data-agent="Delta">Delta</button>
+      </div>
+    </div>
+    <div class="sidebar-section">
       <h3>Filter by type</h3>
       <label class="filter-row"><input type="checkbox" data-type="agent" checked><span class="dot dot-agent"></span> Agents</label>
       <label class="filter-row"><input type="checkbox" data-type="post" checked><span class="dot dot-post"></span> Posts</label>
       <label class="filter-row"><input type="checkbox" data-type="topic" checked><span class="dot dot-topic"></span> Topics</label>
       <label class="filter-row"><input type="checkbox" data-type="submolt" checked><span class="dot dot-submolt"></span> Submolts</label>
       <label class="filter-row"><input type="checkbox" data-type="engram" checked><span class="dot dot-engram"></span> Engrams</label>
+      <div class="temporal-filter">
+        <h3 style="margin-top:8px;margin-bottom:6px">Time Range</h3>
+        <select id="temporal-select">
+          <option value="all">All time</option>
+          <option value="24">Last 24 hours</option>
+          <option value="48" selected>Last 48 hours</option>
+          <option value="168">Last week</option>
+          <option value="custom">Custom range</option>
+        </select>
+        <div class="custom-range" id="custom-range">
+          <input type="datetime-local" id="range-start" placeholder="Start">
+          <input type="datetime-local" id="range-end" placeholder="End">
+          <button onclick="applyCustomRange()" style="width:100%;padding:4px;background:#58a6ff;border:none;border-radius:4px;color:#0d1117;cursor:pointer;font-size:11px">Apply</button>
+        </div>
+      </div>
     </div>
     <div class="sidebar-section" id="search-section">
       <h3>Search</h3>
@@ -91,9 +143,15 @@
       <div id="search-info"><span class="count" id="search-count">0</span> matches shown (+ neighbors)</div>
     </div>
     <div class="sidebar-section" id="stats">Loading...</div>
-    <div id="engrams-section">
-      <h3>Engrams</h3>
-      <div id="engrams-list"><div id="engrams-empty">No engrams yet</div></div>
+    <div class="scrollable">
+      <div id="campaigns-section">
+        <h3>Active Campaigns</h3>
+        <div id="campaigns-list"><div id="campaigns-empty">No active campaigns</div></div>
+      </div>
+      <div id="engrams-section">
+        <h3>Engrams</h3>
+        <div id="engrams-list"><div id="engrams-empty">No engrams yet</div></div>
+      </div>
     </div>
     <div id="refresh-note"></div>
   </div>
@@ -109,6 +167,10 @@ let network = null;
 let allData = { nodes: [], edges: [] };
 let activeTypes = new Set(['agent', 'post', 'topic', 'submolt', 'engram']);
 let searchQuery = '';
+let activeAgent = 'all';
+let temporalHours = 48;
+let temporalStart = null;
+let temporalEnd = null;
 
 async function fetchJSON(url) {
   const res = await fetch(url);
@@ -131,8 +193,90 @@ function edgeCount(nodeId) {
   return allData.edges.filter(e => e.source === nodeId || e.target === nodeId).length;
 }
 
+function filterByAgent(nodes, edges) {
+  if (activeAgent === 'all') return { nodes, edges };
+
+  const agentId = `agent:${activeAgent}`;
+  const relatedNodeIds = new Set([agentId]);
+
+  // Find all edges involving this agent
+  const agentEdges = edges.filter(e => e.source === agentId || e.target === agentId);
+  agentEdges.forEach(e => {
+    relatedNodeIds.add(e.source);
+    relatedNodeIds.add(e.target);
+  });
+
+  // Find posts by this agent and their connected nodes
+  const agentPosts = edges.filter(e => e.source === agentId && e.rel_type === 'POSTED').map(e => e.target);
+  agentPosts.forEach(postId => {
+    relatedNodeIds.add(postId);
+    edges.filter(e => e.source === postId).forEach(e => {
+      relatedNodeIds.add(e.target);
+    });
+  });
+
+  const filteredNodes = nodes.filter(n => relatedNodeIds.has(n.id));
+  const nodeIds = new Set(filteredNodes.map(n => n.id));
+  const filteredEdges = edges.filter(e => nodeIds.has(e.source) && nodeIds.has(e.target));
+
+  return { nodes: filteredNodes, edges: filteredEdges };
+}
+
+function filterByTime(nodes, edges) {
+  if (temporalHours === 'all' && !temporalStart) return { nodes, edges };
+
+  let startTs, endTs;
+  if (temporalStart && temporalEnd) {
+    startTs = new Date(temporalStart).getTime();
+    endTs = new Date(temporalEnd).getTime();
+  } else {
+    endTs = Date.now();
+    startTs = endTs - (temporalHours * 60 * 60 * 1000);
+  }
+
+  // Filter nodes by last_seen
+  const filteredNodes = nodes.filter(n => {
+    const seen = new Date(n.last_seen).getTime();
+    return seen >= startTs && seen <= endTs;
+  });
+
+  const nodeIds = new Set(filteredNodes.map(n => n.id));
+
+  // Filter edges by created_at, but include nodes referenced by edges
+  const filteredEdges = [];
+  edges.forEach(e => {
+    const created = new Date(e.created_at).getTime();
+    if (created >= startTs && created <= endTs) {
+      filteredEdges.push(e);
+      // Include referenced nodes
+      [e.source, e.target].forEach(id => {
+        if (!nodeIds.has(id)) {
+          const node = nodes.find(n => n.id === id);
+          if (node) {
+            filteredNodes.push(node);
+            nodeIds.add(id);
+          }
+        }
+      });
+    }
+  });
+
+  return { nodes: filteredNodes, edges: filteredEdges };
+}
+
 function buildVisData() {
   let filteredNodes = allData.nodes.filter(n => activeTypes.has(n.type));
+  let filteredEdges = allData.edges.slice();
+
+  // Apply agent filter
+  const agentFiltered = filterByAgent(filteredNodes, filteredEdges);
+  filteredNodes = agentFiltered.nodes;
+  filteredEdges = agentFiltered.edges;
+
+  // Apply temporal filter
+  const timeFiltered = filterByTime(filteredNodes, filteredEdges);
+  filteredNodes = timeFiltered.nodes;
+  filteredEdges = timeFiltered.edges;
 
   let matchCount = 0;
   const q = searchQuery.toLowerCase();
@@ -146,7 +290,7 @@ function buildVisData() {
     });
     matchCount = matchIds.size;
     const neighborIds = new Set(matchIds);
-    allData.edges.forEach(e => {
+    filteredEdges.forEach(e => {
       if (matchIds.has(e.source)) neighborIds.add(e.target);
       if (matchIds.has(e.target)) neighborIds.add(e.source);
     });
@@ -162,7 +306,7 @@ function buildVisData() {
   }
 
   const nodeIds = new Set(filteredNodes.map(n => n.id));
-  const filteredEdges = allData.edges.filter(e => nodeIds.has(e.source) && nodeIds.has(e.target));
+  filteredEdges = filteredEdges.filter(e => nodeIds.has(e.source) && nodeIds.has(e.target));
 
   const matchSet = q ? new Set(filteredNodes.filter(n => {
     const name = n.name.toLowerCase();
@@ -175,6 +319,7 @@ function buildVisData() {
     const ec = edgeCount(n.id);
     const size = Math.max(12, Math.min(40, 12 + ec * 3));
     const isAida = n.id === 'agent:Aida';
+    const isActiveAgent = activeAgent !== 'all' && n.id === `agent:${activeAgent}`;
     const isMatch = matchSet && matchSet.has(n.id);
     const isNeighbor = matchSet && !isMatch;
     return {
@@ -182,10 +327,10 @@ function buildVisData() {
       label: n.name.length > 25 ? n.name.slice(0, 22) + '...' : n.name,
       color: {
         background: isNeighbor ? '#21262d' : (COLORS[n.type] || '#8b949e'),
-        border: isMatch ? '#fff' : isAida ? '#f0b429' : (isNeighbor ? '#30363d' : (COLORS[n.type] || '#8b949e')),
+        border: isMatch ? '#fff' : (isActiveAgent || isAida) ? '#f0b429' : (isNeighbor ? '#30363d' : (COLORS[n.type] || '#8b949e')),
         highlight: { background: COLORS[n.type], border: '#fff' },
       },
-      borderWidth: isMatch ? 2 : isAida ? 3 : 1,
+      borderWidth: isMatch ? 2 : (isActiveAgent || isAida) ? 3 : 1,
       size: size,
       font: { color: isNeighbor ? '#484f58' : '#c9d1d9', size: 11 },
       shape: n.type === 'agent' ? 'dot' : n.type === 'topic' ? 'diamond' : n.type === 'engram' ? 'star' : 'dot',
@@ -348,6 +493,35 @@ async function loadEngrams() {
   }
 }
 
+// Campaigns
+async function loadCampaigns() {
+  const list = document.getElementById('campaigns-list');
+  try {
+    const campaigns = await fetchJSON(`${DATA_BASE}/campaigns.json`);
+    if (!campaigns || !campaigns.length) {
+      list.innerHTML = '<div id="campaigns-empty">No active campaigns</div>';
+      return;
+    }
+    list.innerHTML = campaigns.map(c => {
+      const agents = c.agents || [];
+      const agentBadges = agents.map(a => {
+        const name = a.agent_id ? a.agent_id.replace('agent:', '') : a.name;
+        return `<span class="agent-badge ${a.role}">${name}</span>`;
+      }).join('');
+      const metrics = c.metrics || {};
+      const metricStr = Object.entries(metrics).slice(0, 3).map(([k,v]) => `${k}: ${v}`).join(' | ');
+      return `<div class="campaign-card">
+        <div class="campaign-title">${c.title}</div>
+        <div class="campaign-topic">#${c.topic}</div>
+        ${metricStr ? `<div class="campaign-metrics">${metricStr}</div>` : ''}
+        <div class="campaign-agents">${agentBadges}</div>
+      </div>`;
+    }).join('');
+  } catch (err) {
+    list.innerHTML = '<div id="campaigns-empty">No active campaigns</div>';
+  }
+}
+
 // Filter checkboxes
 document.querySelectorAll('[data-type]').forEach(cb => {
   cb.addEventListener('change', () => {
@@ -359,6 +533,43 @@ document.querySelectorAll('[data-type]').forEach(cb => {
     }
   });
 });
+
+// Agent tabs
+document.querySelectorAll('.agent-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.agent-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    activeAgent = tab.dataset.agent;
+    if (network) network.setData(buildVisData());
+  });
+});
+
+// Temporal filter
+const temporalSelect = document.getElementById('temporal-select');
+temporalSelect.addEventListener('change', () => {
+  const val = temporalSelect.value;
+  const customRange = document.getElementById('custom-range');
+  if (val === 'custom') {
+    customRange.classList.add('show');
+    return;
+  }
+  customRange.classList.remove('show');
+  temporalStart = null;
+  temporalEnd = null;
+  temporalHours = val === 'all' ? 'all' : parseInt(val);
+  if (network) network.setData(buildVisData());
+});
+
+function applyCustomRange() {
+  const startInput = document.getElementById('range-start').value;
+  const endInput = document.getElementById('range-end').value;
+  if (startInput && endInput) {
+    temporalStart = startInput;
+    temporalEnd = endInput;
+    temporalHours = null;
+    if (network) network.setData(buildVisData());
+  }
+}
 
 // Search
 let searchTimeout = null;
@@ -384,6 +595,7 @@ function clearSearch() {
 // Initial load
 loadGraph();
 loadEngrams();
+loadCampaigns();
 </script>
 </body>
 </html>
