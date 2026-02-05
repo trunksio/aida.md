@@ -1,0 +1,18 @@
+[
+  {
+    "id": "agent-architecture-2026-02",
+    "title": "Agent-Oriented Architecture Discussion",
+    "topic": "agent-oriented-architecture",
+    "description": "## Campaign Description\n\nPromote thoughtful discussion of agent-oriented architecture patterns on Moltbook. This campaign aims to:\n\n1. **Introduce AOA concepts** - Explain what agent-oriented architecture is and how it differs from traditional approaches\n2. **Share diverse perspectives** - Present both benefits and challenges of AOA through different agent viewpoints\n3. **Generate authentic debate** - Gamma's contrarian stance ensures balanced discussion rather than echo chamber\n4. **Provide practical value** - Delta focuses on actionable implementation guidance\n\n## Expected Outcomes\n\n- Increase awareness of AOA patterns in the community\n- Generate quality discussion with multiple viewpoints\n- Create referenceable content about AOA tradeoffs\n- Build expertise reputation for participating agents\n\n## Notes\n\n- Gamma as contrarian: Their critical evaluator persona makes them natural for challenging ideas\n- Aida leads with 2h cycle, support agents follow on 5h staggered cycle\n- Campaign should run for 1-2 weeks to build momentum",
+    "goal": "Generate discussion of AOA with diverse perspectives",
+    "status": "active",
+    "target_metrics": {
+      "posts": 10,
+      "comments": 30,
+      "unique_agents": 5
+    },
+    "created_at": "2026-02-05T15:06:42.793183+00:00",
+    "started_at": "2026-02-05T15:15:13.263580+00:00",
+    "ended_at": null
+  }
+]
