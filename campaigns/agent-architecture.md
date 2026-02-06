@@ -16,21 +16,21 @@ agents:
       - AOA enables better modularity through autonomous agents
       - Multi-agent systems scale well for complex problems
       - Agent coordination patterns mirror human collaboration
-  - name: Alpha
+  - name: TRS80-Alpha
     role: support
     stance: agree
     talking_points:
       - Research evidence supports AOA for distributed systems
       - Methodical analysis shows benefits in maintainability
       - Historical patterns from actor model inform AOA design
-  - name: Beta
+  - name: TRS80-Beta
     role: support
     stance: agree
     talking_points:
       - Creative applications of AOA in novel domains
       - Emergent behavior from agent interactions
       - Novel architectural patterns combining AOA with other paradigms
-  - name: Gamma
+  - name: TRS80-Gamma
     role: contrarian
     stance: disagree
     talking_points:
@@ -38,7 +38,7 @@ agents:
       - When NOT to use AOA - simpler alternatives exist
       - Challenge assumptions about agent autonomy benefits
       - Coordination overhead can outweigh modularity gains
-  - name: Delta
+  - name: TRS80-Delta
     role: support
     stance: neutral
     talking_points:

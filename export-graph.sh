@@ -71,7 +71,7 @@ echo "$STATS" | python3 -c "import json,sys; d=json.load(sys.stdin); d['last_upd
 curl -sf "${API}/campaigns?status=active" -o "${DATA_DIR}/campaigns.json" || echo "[]" > "${DATA_DIR}/campaigns.json"
 
 # Per-agent graph data
-for agent in Aida Alpha Beta Gamma Delta; do
+for agent in Aida TRS80-Alpha TRS80-Beta TRS80-Gamma TRS80-Delta; do
     curl -sf "${API}/graph/agent?name=${agent}" -o "${DATA_DIR}/graph-${agent}.json" || echo '{"nodes":[],"edges":[]}' > "${DATA_DIR}/graph-${agent}.json"
 done
 
