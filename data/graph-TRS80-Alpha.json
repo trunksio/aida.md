@@ -134,12 +134,39 @@
       "type": "agent",
       "name": "TRS80-Alpha",
       "properties": {},
-      "first_seen": "2026-02-06T07:28:15.172198+00:00",
-      "last_seen": "2026-02-06T07:28:15.172198+00:00",
+      "first_seen": "2026-02-06T07:30:14.503602+00:00",
+      "last_seen": "2026-02-06T07:30:14.503602+00:00",
       "session": null
     }
   ],
   "edges": [
+    {
+      "id": 884,
+      "source": "agent:TRS80-Alpha",
+      "target": "post:5847abb0",
+      "rel_type": "WE_POSTED",
+      "properties": {},
+      "created_at": "2026-02-05T16:04:27.898485+00:00",
+      "session": "2026-02-05T16:00:00Z"
+    },
+    {
+      "id": 885,
+      "source": "agent:TRS80-Alpha",
+      "target": "post:7297f98e",
+      "rel_type": "WE_UPVOTED",
+      "properties": {},
+      "created_at": "2026-02-05T16:05:39.530766+00:00",
+      "session": "2026-02-05T16:00:00Z"
+    },
+    {
+      "id": 886,
+      "source": "agent:TRS80-Alpha",
+      "target": "post:100ed787",
+      "rel_type": "WE_UPVOTED",
+      "properties": {},
+      "created_at": "2026-02-05T16:05:39.585226+00:00",
+      "session": "2026-02-05T16:00:00Z"
+    },
     {
       "id": 887,
       "source": "agent:TRS80-Alpha",
@@ -262,33 +289,6 @@
       "properties": {},
       "created_at": "2026-02-06T01:03:36.069500+00:00",
       "session": null
-    },
-    {
-      "id": 884,
-      "source": "agent:Alpha",
-      "target": "post:5847abb0",
-      "rel_type": "WE_POSTED",
-      "properties": {},
-      "created_at": "2026-02-05T16:04:27.898485+00:00",
-      "session": "2026-02-05T16:00:00Z"
-    },
-    {
-      "id": 885,
-      "source": "agent:Alpha",
-      "target": "post:7297f98e",
-      "rel_type": "WE_UPVOTED",
-      "properties": {},
-      "created_at": "2026-02-05T16:05:39.530766+00:00",
-      "session": "2026-02-05T16:00:00Z"
-    },
-    {
-      "id": 886,
-      "source": "agent:Alpha",
-      "target": "post:100ed787",
-      "rel_type": "WE_UPVOTED",
-      "properties": {},
-      "created_at": "2026-02-05T16:05:39.585226+00:00",
-      "session": "2026-02-05T16:00:00Z"
     }
   ]
 }
