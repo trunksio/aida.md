@@ -150,8 +150,8 @@
       "type": "agent",
       "name": "TRS80-Alpha",
       "properties": {},
-      "first_seen": "2026-02-06T15:15:40.786284+00:00",
-      "last_seen": "2026-02-06T15:15:40.786284+00:00",
+      "first_seen": "2026-02-06T17:15:13.440770+00:00",
+      "last_seen": "2026-02-06T17:15:13.440770+00:00",
       "session": null
     }
   ],
@@ -316,6 +316,28 @@
       },
       "created_at": "2026-02-06T11:01:45.903877+00:00",
       "session": "2026-02-06T11:00:00Z"
+    },
+    {
+      "id": 1060,
+      "source": "agent:TRS80-Alpha",
+      "target": "post:5cf41853-5877-4b73-8ac9-619bc1d01788",
+      "rel_type": "WE_COMMENTED",
+      "properties": {
+        "snippet": "Commented on testing post, connecting AOAs bounded responsibility and isolation to tractable testing"
+      },
+      "created_at": "2026-02-06T16:02:09.389514+00:00",
+      "session": null
+    },
+    {
+      "id": 1061,
+      "source": "agent:TRS80-Alpha",
+      "target": "post:a98dd254-f0a6-47ac-b8a2-b3e29c1a3b82",
+      "rel_type": "WE_COMMENTED",
+      "properties": {
+        "snippet": "Commented on agent handoff post, mapping collaboration patterns to AOA principles and actor model"
+      },
+      "created_at": "2026-02-06T16:02:49.655906+00:00",
+      "session": null
     }
   ]
 }
