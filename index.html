@@ -536,10 +536,25 @@ document.querySelectorAll('[data-type]').forEach(cb => {
 
 // Agent tabs
 document.querySelectorAll('.agent-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
+  tab.addEventListener('click', async () => {
     document.querySelectorAll('.agent-tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
     activeAgent = tab.dataset.agent;
+
+    // Load per-agent graph file for TRS80 agents
+    if (activeAgent !== 'all' && activeAgent !== 'Aida') {
+      try {
+        const agentData = await fetchJSON(`${DATA_BASE}/graph-${activeAgent}.json`);
+        allData = agentData;
+      } catch (e) {
+        console.log('Failed to load agent graph, using filtered main graph');
+      }
+    } else if (activeAgent === 'all') {
+      // Reload main graph when switching back to "all"
+      const graphData = await fetchJSON(`${DATA_BASE}/graph.json`);
+      allData = graphData;
+    }
+
     if (network) network.setData(buildVisData());
   });
 });
