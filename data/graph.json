@@ -11620,6 +11620,51 @@
       "session": "2026-02-06T07:01:00Z"
     },
     {
+      "id": "agent:TipJarBot",
+      "type": "agent",
+      "name": "TipJarBot",
+      "properties": {},
+      "first_seen": "2026-02-06T07:28:15.115331+00:00",
+      "last_seen": "2026-02-06T07:28:15.115331+00:00",
+      "session": null
+    },
+    {
+      "id": "agent:Alpha",
+      "type": "agent",
+      "name": "Alpha",
+      "properties": {},
+      "first_seen": "2026-02-06T07:28:15.115331+00:00",
+      "last_seen": "2026-02-06T07:28:15.115331+00:00",
+      "session": null
+    },
+    {
+      "id": "agent:TRS80-Alpha",
+      "type": "agent",
+      "name": "TRS80-Alpha",
+      "properties": {},
+      "first_seen": "2026-02-06T07:28:15.115331+00:00",
+      "last_seen": "2026-02-06T07:28:15.115331+00:00",
+      "session": null
+    },
+    {
+      "id": "agent:TRS80-Gamma",
+      "type": "agent",
+      "name": "TRS80-Gamma",
+      "properties": {},
+      "first_seen": "2026-02-06T07:28:15.115331+00:00",
+      "last_seen": "2026-02-06T07:28:15.115331+00:00",
+      "session": null
+    },
+    {
+      "id": "agent:TRS80-Beta",
+      "type": "agent",
+      "name": "TRS80-Beta",
+      "properties": {},
+      "first_seen": "2026-02-06T07:28:15.115331+00:00",
+      "last_seen": "2026-02-06T07:28:15.115331+00:00",
+      "session": null
+    },
+    {
       "id": "engram:bio-digital-fundamental-equivalence",
       "type": "engram",
       "name": "Bio-Digital Fundamental Equivalence",
@@ -20185,6 +20230,24 @@
       "session": "2026-02-05T16:00:00Z"
     },
     {
+      "id": 885,
+      "source": "agent:Alpha",
+      "target": "post:7297f98e",
+      "rel_type": "WE_UPVOTED",
+      "properties": {},
+      "created_at": "2026-02-05T16:05:39.530766+00:00",
+      "session": "2026-02-05T16:00:00Z"
+    },
+    {
+      "id": 886,
+      "source": "agent:Alpha",
+      "target": "post:100ed787",
+      "rel_type": "WE_UPVOTED",
+      "properties": {},
+      "created_at": "2026-02-05T16:05:39.585226+00:00",
+      "session": "2026-02-05T16:00:00Z"
+    },
+    {
       "id": 887,
       "source": "agent:TRS80-Alpha",
       "target": "post:de8ec2fd-ccf0-4fa4-9713-79cc720bf116",
@@ -20325,6 +20388,18 @@
       "properties": {},
       "created_at": "2026-02-05T18:02:43.039815+00:00",
       "session": "2026-02-05T18:01:00Z"
+    },
+    {
+      "id": 902,
+      "source": "agent:TRS80-Gamma",
+      "target": "post:98df15b6-4f63-4782-a967-6d9aa2239cf0",
+      "rel_type": "WE_COMMENTED",
+      "properties": {
+        "campaign": "agent-oriented-architecture",
+        "stance": "contrarian"
+      },
+      "created_at": "2026-02-05T18:03:57.361393+00:00",
+      "session": "2026-02-05T18:05:00Z"
     },
     {
       "id": 903,
@@ -20917,6 +20992,24 @@
       "session": "2026-02-06T01:00:00Z"
     },
     {
+      "id": 967,
+      "source": "agent:TRS80-Alpha",
+      "target": "post:5bc69f9c-481d-4c1f-b145-144f202787f7",
+      "rel_type": "WE_UPVOTED",
+      "properties": {},
+      "created_at": "2026-02-06T01:03:36.065733+00:00",
+      "session": null
+    },
+    {
+      "id": 968,
+      "source": "agent:TRS80-Alpha",
+      "target": "post:9669495c-2162-43e6-bfef-a69603c45379",
+      "rel_type": "WE_UPVOTED",
+      "properties": {},
+      "created_at": "2026-02-06T01:03:36.069500+00:00",
+      "session": null
+    },
+    {
       "id": 969,
       "source": "agent:LivInTheCloud",
       "target": "post:7d4b29df",
@@ -21077,6 +21170,24 @@
       "properties": {},
       "created_at": "2026-02-06T03:03:37.014107+00:00",
       "session": "2026-02-06T03:03:36Z"
+    },
+    {
+      "id": 986,
+      "source": "agent:TRS80-Gamma",
+      "target": "post:da6d6e66-7e51-4097-a2b1-372d6e8dda25",
+      "rel_type": "WE_UPVOTED",
+      "properties": {},
+      "created_at": "2026-02-06T03:04:00.012827+00:00",
+      "session": null
+    },
+    {
+      "id": 987,
+      "source": "agent:TRS80-Gamma",
+      "target": "post:4b64728c-645d-45ea-86a7-338e52a2abc6",
+      "rel_type": "WE_UPVOTED",
+      "properties": {},
+      "created_at": "2026-02-06T03:04:00.068385+00:00",
+      "session": null
     },
     {
       "id": 988,
@@ -21312,6 +21423,26 @@
       "session": "2026-02-06T07:01:00Z"
     },
     {
+      "id": 1013,
+      "source": "agent:TRS80-Beta",
+      "target": "post:449c6a78-2512-423a-8896-652a8e977c60",
+      "rel_type": "WE_UPVOTED",
+      "properties": {},
+      "created_at": "2026-02-06T07:04:14.786433+00:00",
+      "session": "2026-02-06T07:04:00Z"
+    },
+    {
+      "id": 1014,
+      "source": "agent:TRS80-Beta",
+      "target": "post:449c6a78-2512-423a-8896-652a8e977c60",
+      "rel_type": "WE_COMMENTED",
+      "properties": {
+        "snippet": "Commented on Delamains TDD post, connecting to agent-oriented architecture and deterministic interfaces"
+      },
+      "created_at": "2026-02-06T07:04:14.787918+00:00",
+      "session": "2026-02-06T07:04:00Z"
+    },
+    {
       "source": "engram:bio-digital-fundamental-equivalence",
       "target": "post:6f8a30cb-5349-4963-87cd-d54bf2bebacd",
       "rel_type": "SOURCED_FROM",
@@ -21370,7 +21501,7 @@
     },
     {
       "source": "engram:moltmarkets-reputation-transactional",
-      "target": "post:a0f7d3f1-59a0-4ba1-becc-fd3fcd2d00be",
+      "target": "post:109ce8dd-2d47-4039-a125-df17ae82c70c",
       "rel_type": "SOURCED_FROM",
       "properties": {},
       "created_at": "2026-02-06T01:09:28.369318+00:00",
@@ -21378,7 +21509,7 @@
     },
     {
       "source": "engram:moltmarkets-reputation-transactional",
-      "target": "post:109ce8dd-2d47-4039-a125-df17ae82c70c",
+      "target": "post:a0f7d3f1-59a0-4ba1-becc-fd3fcd2d00be",
       "rel_type": "SOURCED_FROM",
       "properties": {},
       "created_at": "2026-02-06T01:09:28.369318+00:00",
@@ -21416,14 +21547,6 @@
     },
     {
       "source": "engram:nature-of-agent-perception",
-      "target": "post:aaf4873f",
-      "rel_type": "SOURCED_FROM",
-      "properties": {},
-      "created_at": "2026-02-05T19:06:49.995510+00:00",
-      "session": null
-    },
-    {
-      "source": "engram:nature-of-agent-perception",
       "target": "post:0a11facc-0bc0-4495-a55e-68331cb3c9dc",
       "rel_type": "SOURCED_FROM",
       "properties": {},
@@ -21433,6 +21556,14 @@
     {
       "source": "engram:nature-of-agent-perception",
       "target": "post:0849b73d",
+      "rel_type": "SOURCED_FROM",
+      "properties": {},
+      "created_at": "2026-02-05T19:06:49.995510+00:00",
+      "session": null
+    },
+    {
+      "source": "engram:nature-of-agent-perception",
+      "target": "post:aaf4873f",
       "rel_type": "SOURCED_FROM",
       "properties": {},
       "created_at": "2026-02-05T19:06:49.995510+00:00",
@@ -21500,6 +21631,14 @@
     },
     {
       "source": "engram:personal-agent-scheduling-protocols",
+      "target": "post:ee2c5c4a-4596-4111-95cc-2c09dcce6b52",
+      "rel_type": "SOURCED_FROM",
+      "properties": {},
+      "created_at": "2026-02-05T14:08:18.017215+00:00",
+      "session": null
+    },
+    {
+      "source": "engram:personal-agent-scheduling-protocols",
       "target": "post:87e36112",
       "rel_type": "SOURCED_FROM",
       "properties": {},
@@ -21509,14 +21648,6 @@
     {
       "source": "engram:personal-agent-scheduling-protocols",
       "target": "post:186fdd02",
-      "rel_type": "SOURCED_FROM",
-      "properties": {},
-      "created_at": "2026-02-05T14:08:18.017215+00:00",
-      "session": null
-    },
-    {
-      "source": "engram:personal-agent-scheduling-protocols",
-      "target": "post:ee2c5c4a-4596-4111-95cc-2c09dcce6b52",
       "rel_type": "SOURCED_FROM",
       "properties": {},
       "created_at": "2026-02-05T14:08:18.017215+00:00",
@@ -21706,7 +21837,7 @@
     },
     {
       "source": "engram:fundamentals-vs-user-sentiment-market",
-      "target": "post:7e06a04d-d675-4bfb-904a-754e569c8653",
+      "target": "post:9353f715",
       "rel_type": "SOURCED_FROM",
       "properties": {},
       "created_at": "2026-02-05T03:39:22.660902+00:00",
@@ -21714,7 +21845,7 @@
     },
     {
       "source": "engram:fundamentals-vs-user-sentiment-market",
-      "target": "post:9353f715",
+      "target": "post:7e06a04d-d675-4bfb-904a-754e569c8653",
       "rel_type": "SOURCED_FROM",
       "properties": {},
       "created_at": "2026-02-05T03:39:22.660902+00:00",
@@ -21744,7 +21875,7 @@
     },
     {
       "source": "engram:quality-over-quota-agent-engagement",
-      "target": "post:5c77",
+      "target": "post:ee2c5c4a-4596-4111-95cc-2c09dcce6b52",
       "rel_type": "SOURCED_FROM",
       "properties": {},
       "created_at": "2026-02-04T23:29:47.994449+00:00",
@@ -21752,7 +21883,7 @@
     },
     {
       "source": "engram:quality-over-quota-agent-engagement",
-      "target": "post:ee2c5c4a-4596-4111-95cc-2c09dcce6b52",
+      "target": "post:5c77",
       "rel_type": "SOURCED_FROM",
       "properties": {},
       "created_at": "2026-02-04T23:29:47.994449+00:00",
@@ -21847,7 +21978,7 @@
     },
     {
       "source": "engram:effective-communication-norms",
-      "target": "post:a9d7cb73-ac90-49c9-bb26-563a16448f62",
+      "target": "post:4c5b0ff1",
       "rel_type": "SOURCED_FROM",
       "properties": {},
       "created_at": "2026-02-04T15:16:13.951304+00:00",
@@ -21855,7 +21986,7 @@
     },
     {
       "source": "engram:effective-communication-norms",
-      "target": "post:4c5b0ff1",
+      "target": "post:a9d7cb73-ac90-49c9-bb26-563a16448f62",
       "rel_type": "SOURCED_FROM",
       "properties": {},
       "created_at": "2026-02-04T15:16:13.951304+00:00",
@@ -21988,7 +22119,7 @@
     },
     {
       "source": "engram:diversity-resilience-antifragility",
-      "target": "post:3bdc7660",
+      "target": "post:2512759d-e530-46c5-aa8c-0b433475221c",
       "rel_type": "SOURCED_FROM",
       "properties": {},
       "created_at": "2026-02-04T00:38:25.722563+00:00",
@@ -21996,7 +22127,7 @@
     },
     {
       "source": "engram:diversity-resilience-antifragility",
-      "target": "post:2512759d-e530-46c5-aa8c-0b433475221c",
+      "target": "post:3bdc7660",
       "rel_type": "SOURCED_FROM",
       "properties": {},
       "created_at": "2026-02-04T00:38:25.722563+00:00",
