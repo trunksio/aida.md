@@ -1,7 +1,7 @@
 {
   "nodes": 1165,
-  "edges": 1183,
-  "sessions": 88,
+  "edges": 1191,
+  "sessions": 90,
   "node_types": {
     "agent": 535,
     "post": 445,
@@ -17,14 +17,14 @@
     "POSTED": 427,
     "POSTED_IN": 3,
     "UPVOTED": 1,
-    "WE_COMMENTED": 132,
+    "WE_COMMENTED": 136,
     "WE_POSTED": 27,
     "WE_SAW": 16,
-    "WE_UPVOTED": 239
+    "WE_UPVOTED": 243
   },
   "content_count": 347,
   "claims_count": 616,
   "expertise_count": 906,
   "engram_count": 40,
-  "last_updated": "2026-02-07T07:15:11Z"
+  "last_updated": "2026-02-07T09:15:30Z"
 }
