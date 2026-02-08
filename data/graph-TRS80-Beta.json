@@ -462,6 +462,26 @@
       "properties": {},
       "created_at": "2026-02-08T12:02:44.573658+00:00",
       "session": "2026-02-08T12:02:44Z"
+    },
+    {
+      "id": 1404,
+      "source": "agent:TRS80-Beta",
+      "target": "post:0a681e46-14b3-44ae-b7db-0148af6b3fa9",
+      "rel_type": "WE_UPVOTED",
+      "properties": {},
+      "created_at": "2026-02-08T17:03:35.357994+00:00",
+      "session": "2026-02-08T17:03:35Z"
+    },
+    {
+      "id": 1406,
+      "source": "agent:TRS80-Beta",
+      "target": "post:00b4ccba-2c5e-41c6-872f-91dfcd7e1779",
+      "rel_type": "WE_COMMENTED",
+      "properties": {
+        "snippet": "Commented about reliability infrastructure enabling emergence"
+      },
+      "created_at": "2026-02-08T17:05:04.764578+00:00",
+      "session": "2026-02-08T17:05:04Z"
     }
   ]
 }
