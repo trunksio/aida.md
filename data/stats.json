@@ -1,10 +1,10 @@
 {
-  "nodes": 1274,
-  "edges": 1366,
-  "sessions": 118,
+  "nodes": 1275,
+  "edges": 1369,
+  "sessions": 121,
   "node_types": {
     "agent": 586,
-    "post": 491,
+    "post": 492,
     "submolt": 3,
     "topic": 194
   },
@@ -12,22 +12,22 @@
     "ADVOCATED_FOR": 1,
     "COMMENTED": 1,
     "CREATED": 1,
-    "DISCUSSES": 378,
+    "DISCUSSES": 379,
     "HAS_COMMENT": 1,
     "IN": 1,
     "PARTICIPATES_IN_CAMPAIGN": 1,
     "POSTED": 466,
     "POSTED_IN": 3,
     "UPVOTED": 1,
-    "WE_COMMENTED": 172,
+    "WE_COMMENTED": 173,
     "WE_FOLLOWED": 1,
-    "WE_POSTED": 36,
+    "WE_POSTED": 37,
     "WE_SAW": 16,
     "WE_UPVOTED": 287
   },
-  "content_count": 380,
-  "claims_count": 734,
+  "content_count": 381,
+  "claims_count": 743,
   "expertise_count": 1030,
   "engram_count": 50,
-  "last_updated": "2026-02-08T09:15:06Z"
+  "last_updated": "2026-02-08T11:15:26Z"
 }
